@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}list of companies!{% endblock %}
+
+{% block body %}
+ <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>list of companies</h4>
+            <hr>
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Sector</th>
+                            <th scope="col">Siren</th>
+                            <th scope="col">Financial results</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for companie in listOfCompanies %}
+                        <tr>
+                            <th scope="row">{{ companie.name }}</th>
+                            <th scope="row">{{ companie.sector }}</th>
+                            <th scope="row">{{ companie.siren }}</th>
+                            <th scope="row">
+                                <a class="btn btn-success" href="{{ path('app_results', {'id': companie.id}) }}" aria-label="edit">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

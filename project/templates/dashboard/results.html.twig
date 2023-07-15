@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details by company!{% endblock %}
+
+{% block body %}
+ <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>{{ companie.name }}</h4>
+            <hr>
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ca</th>
+                            <th scope="col">Margin</th>
+                            <th scope="col">Ebitda</th>
+                            <th scope="col">loss</th>
+                            <th scope="col">Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <th scope="row">{{ result.ca }}</th>
+                            <th scope="row">{{ result.margin }}</th>
+                            <th scope="row">{{ result.ebitda }}</th>
+                            <th scope="row">{{ result.loss }}</th>
+                            <th scope="row">{{ result.year }}</th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            <br>
+            <h4>Comparison of the two years</h4>
+            <hr>
+            <button type="button" class="btn btn-primary btn-sm disabled">Ebitda</button>
+            <button type="button" class="btn btn-success btn-sm disabled">Margin</button>
+            <button type="button" class="btn btn-danger btn-sm disabled">Ca</button>
+            <button type="button" class="btn btn-dark btn-sm disabled">Loss</button>
+
+            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            <br>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var dataGraphCa = JSON.parse('{{ dataGraphCa | json_encode | raw }}');
+        var dataGraphMargin = JSON.parse('{{ dataGraphMargin | json_encode | raw }}');
+        var dataGraphEbitda = JSON.parse('{{ dataGraphEbitda | json_encode | raw }}');
+        var dataGraphLoss = JSON.parse('{{ dataGraphLoss | json_encode | raw }}');
+
+        const xValues = [2016,2017];
+
+        new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+            data: dataGraphCa,
+            borderColor: "red",
+            fill: false
+            },{
+            data: dataGraphMargin,
+            borderColor: "green",
+            fill: false
+            },{
+            data: dataGraphEbitda,
+            borderColor: "blue",
+            fill: false
+            },{
+            data: dataGraphLoss,
+            borderColor: "black",
+            fill: false
+            }]
+        },
+        options: {
+            legend: {display: false}
+        }
+        });
+    </script>
+{% endblock %}
