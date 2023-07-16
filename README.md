@@ -25,7 +25,7 @@
 ## Installation
 
 1 : Clonage du dépôt.
-  - https://github.com/akhamalalae/exerciceProgrammation
+  - git clone git@github.com:akhamalalae/exerciceProgrammation.git
 
 2 : Lancer la stack docker-compose
   - docker-compose build
